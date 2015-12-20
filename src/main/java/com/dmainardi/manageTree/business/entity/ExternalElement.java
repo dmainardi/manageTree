@@ -50,7 +50,7 @@ public class ExternalElement implements Serializable {
     @Column
     private String description;
     
-    @Column(precision = 2)
+    @Column(scale = 2)
     @DecimalMin(value = "0")
     private BigDecimal price;
     
