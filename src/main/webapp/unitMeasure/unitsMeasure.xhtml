@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Units of measure</title>
+    </h:head>
+    <h:body>
+        <h1>Units of measure's list</h1>
+        <h2>Everybody needs a unit of measure</h2>
+        <h:dataTable value="#{unitMeasureListPresenter.listUnitsMeasure()}" var="unit" border="1">
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{unit.name}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Symbol</f:facet>
+                <h:outputText value="#{unit.symbol}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Actions</f:facet>
+                <h:form>
+                    <h:commandButton value="Open" action="#{unitMeasurePresenter.detailUnitMeasure(unit.id)}"/>
+                    <h:commandButton value="Delete" action="#{unitMeasurePresenter.deleteUnitMeasure(unit)}"/>
+                </h:form>
+            </h:column>
+        </h:dataTable>
+        <h:form>
+            <h:commandButton value="New unit of measure" action="#{unitMeasurePresenter.detailUnitMeasure(null)}"/>
+            <h:commandButton value="Homepage" action="exitFlow"/>
+        </h:form>
+    </h:body>
+</html>
+
