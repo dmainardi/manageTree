@@ -57,12 +57,12 @@ public class Node implements Serializable {
     @OneToMany(mappedBy = "father", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Node> children;
 
-    @Column(nullable = false, precision = 5)
+    @Column(nullable = false, scale = 5)
     @NotNull
     @DecimalMin(value = "1")
     private BigDecimal qty;
 
-    @Column(nullable = false, precision = 2)
+    @Column(nullable = false, scale = 2)
     @NotNull
     @DecimalMin(value = "0")
     private BigDecimal price;
