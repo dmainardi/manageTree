@@ -31,6 +31,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
@@ -53,6 +54,9 @@ public class Node implements Serializable {
     
     @ManyToOne
     private Node father;
+    
+    @OneToOne(mappedBy = "root")
+    private Tree tree;  //only the root node has the tree, others have a null value
     
     @OneToMany(mappedBy = "father", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Node> children;
@@ -130,5 +134,13 @@ public class Node implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Tree getTree() {
+        return tree;
+    }
+
+    public void setTree(Tree tree) {
+        this.tree = tree;
     }
 }

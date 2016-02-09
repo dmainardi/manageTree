@@ -14,29 +14,26 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.dmainardi.manageTree.presentation.node;
+package com.dmainardi.manageTree.presentation.tree;
 
-import javax.enterprise.inject.Produces;
-import javax.faces.flow.Flow;
-import javax.faces.flow.builder.FlowBuilder;
-import javax.faces.flow.builder.FlowBuilderParameter;
-import javax.faces.flow.builder.FlowDefinition;
+import com.dmainardi.manageTree.business.boundary.TreeService;
+import com.dmainardi.manageTree.business.entity.Tree;
+import java.util.List;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author Davide Mainardi <ingmainardi at live.com>
  */
-public class NodeFlow {
-
-    @Produces
-    @FlowDefinition
-    public Flow defineNodesFlow(@FlowBuilderParameter FlowBuilder flowBuilder) {
-        flowBuilder.id("", "node");
-
-        flowBuilder.viewNode("list", "/node/nodes.xhtml").markAsStartNode();
-
-        flowBuilder.returnNode("exitFlow").fromOutcome("/index");
-
-        return flowBuilder.getFlow();
+@Named
+@RequestScoped
+public class TreeListPresenter {
+    @Inject
+    TreeService treeService;
+    
+    public List<Tree> listTrees() {
+        return treeService.listTrees();
     }
 }

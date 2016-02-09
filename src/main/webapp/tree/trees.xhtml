@@ -9,21 +9,21 @@
     <h:body>
         <h1>Trees' list</h1>
         <h2>Ok, now it's gonna be serious</h2>
-        <h:dataTable value="#{nodeListPresenter.listNodes()}" var="node" border="1">
+        <h:dataTable value="#{treeListPresenter.listTrees()}" var="tree" border="1">
             <h:column>
-                <f:facet name="header">Root node</f:facet>
-                <h:outputText value="#{node.description}"/>
+                <f:facet name="header">Root tree</f:facet>
+                <h:outputText value="#{tree.name}"/>
             </h:column>
             <h:column>
                 <f:facet name="header">Actions</f:facet>
                 <h:form>
-                    <h:commandButton value="Open" action="#{nodePresenter.detailNode(node.id)}"/>
-                    <h:commandButton value="Delete" action="#{nodePresenter.deleteNode(node)}"/>
+                    <h:commandButton value="Open" action="#{treePresenter.detailTree(tree.id)}"/>
+                    <h:commandButton value="Delete" action="#{treePresenter.deleteTree(tree)}"/>
                 </h:form>
             </h:column>
         </h:dataTable>
         <h:form>
-            <h:commandLink value="New tree" action="#{nodePresenter.detailNode(null)}"/><br/>
+            <h:commandLink value="New tree" action="#{treePresenter.detailTree(null)}"/><br/>
             <h:link value="Homepage" outcome="exitFlow"/>
         </h:form>
     </h:body>

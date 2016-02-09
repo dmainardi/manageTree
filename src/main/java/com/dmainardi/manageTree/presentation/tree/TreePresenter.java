@@ -14,10 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.dmainardi.manageTree.presentation.node;
+package com.dmainardi.manageTree.presentation.tree;
 
-import com.dmainardi.manageTree.business.boundary.NodeService;
-import com.dmainardi.manageTree.business.entity.Node;
+import com.dmainardi.manageTree.business.boundary.TreeService;
+import com.dmainardi.manageTree.business.entity.Tree;
 import java.io.Serializable;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
@@ -28,39 +28,39 @@ import javax.inject.Named;
  * @author Davide Mainardi <ingmainardi at live.com>
  */
 @Named
-@FlowScoped("node")
-public class NodePresenter implements Serializable {
+@FlowScoped("tree")
+public class TreePresenter implements Serializable {
 
     @Inject
-    NodeService nodeService;
+    TreeService treeService;
 
-    private Node node;
+    private Tree tree;
 
-    public void deleteNode(Node node) {
-        nodeService.deleteNode(node);
+    public void deleteTree(Tree tree) {
+        treeService.deleteTree(tree);
     }
 
-    public String saveNode() {
-        nodeService.saveNode(node);
+    public String saveTree() {
+        treeService.saveTree(tree);
 
-        return "nodes?faces-redirect=true";
+        return "trees?faces-redirect=true";
     }
 
-    public String detailNode(Long id) {
+    public String detailTree(Long id) {
         if (id == null) {
-            node = new Node();
+            tree = new Tree();
         } else {
-            node = nodeService.readNode(id);
+            tree = treeService.readTree(id);
         }
 
-        return "node?faces-redirect=true";
+        return "tree?faces-redirect=true";
     }
 
-    public Node getNode() {
-        return node;
+    public Tree getTree() {
+        return tree;
     }
 
-    public void setNode(Node node) {
-        this.node = node;
+    public void setTree(Tree tree) {
+        this.tree = tree;
     }
 }
