@@ -43,7 +43,7 @@ public class ExternalElementPresenter implements Serializable {
     public String saveExternalElement() {
         externalElementService.saveExternalElement(externalElement);
 
-        return "externalElements";
+        return "externalElements?faces-redirect=true";
     }
 
     public String detailExternalElement(Long id) {
@@ -53,7 +53,7 @@ public class ExternalElementPresenter implements Serializable {
             externalElement = externalElementService.readExternalElement(id);
         }
 
-        return "externalElement";
+        return "externalElement?faces-redirect=true";
     }
 
     public ExternalElement getExternalElement() {

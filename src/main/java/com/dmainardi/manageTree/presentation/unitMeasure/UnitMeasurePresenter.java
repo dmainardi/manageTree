@@ -42,7 +42,7 @@ public class UnitMeasurePresenter implements Serializable {
     public String saveUnitMeasure() {
         unitMeasureService.saveUnitMeasure(unitMeasure);
         
-        return "unitsMeasure";
+        return "unitsMeasure?faces-redirect=true";
     }
     
     public String detailUnitMeasure(Long id) {
@@ -51,7 +51,7 @@ public class UnitMeasurePresenter implements Serializable {
         else
             unitMeasure = unitMeasureService.readUnitMeasure(id);
         
-        return "unitMeasure";
+        return "unitMeasure?faces-redirect=true";
     }
 
     public UnitMeasure getUnitMeasure() {

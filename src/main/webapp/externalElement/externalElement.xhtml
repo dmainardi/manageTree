@@ -22,7 +22,8 @@
                 <f:selectItem itemLabel="Select one" noSelectionOption="true"/>
                 <f:selectItems value="#{unitMeasureListPresenter.listUnitsMeasure()}" var="um" itemLabel="#{um.symbol}" itemValue="#{um}"/>
             </h:selectOneMenu><br/>
-            <h:commandButton value="Save" action="#{externalElementPresenter.saveExternalElement()}"/>
+            <h:commandLink value="Save" action="#{externalElementPresenter.saveExternalElement()}"/><br/>
+            <h:link value="Cancel" outcome="externalElements"/>
         </h:form>
     </h:body>
 </html>

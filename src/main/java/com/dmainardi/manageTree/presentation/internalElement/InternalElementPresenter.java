@@ -42,7 +42,7 @@ public class InternalElementPresenter implements Serializable {
     public String saveInternalElement() {
         internalElementService.saveInternalElement(internalElement);
         
-        return "internalElements";
+        return "internalElements?faces-redirect=true";
     }
     
     public String detailInternalElement(Long id) {
@@ -51,7 +51,7 @@ public class InternalElementPresenter implements Serializable {
         else
             internalElement = internalElementService.readInternalElement(id);
         
-        return "internalElement";
+        return "internalElement?faces-redirect=true";
     }
 
     public InternalElement getInternalElement() {

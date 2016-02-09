@@ -37,8 +37,8 @@
             </h:column>
         </h:dataTable>
         <h:form>
-            <h:commandButton value="New external element" action="#{externalElementPresenter.detailExternalElement(null)}"/>
-            <h:commandButton value="Homepage" action="exitFlow"/>
+            <h:commandLink value="New external element" action="#{externalElementPresenter.detailExternalElement(null)}"/><br/>
+            <h:link value="Homepage" outcome="exitFlow"/>
         </h:form>
     </h:body>
 </html>

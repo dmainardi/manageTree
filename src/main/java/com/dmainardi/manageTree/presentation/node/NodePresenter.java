@@ -43,7 +43,7 @@ public class NodePresenter implements Serializable {
     public String saveNode() {
         nodeService.saveNode(node);
 
-        return "nodes";
+        return "nodes?faces-redirect=true";
     }
 
     public String detailNode(Long id) {
@@ -53,7 +53,7 @@ public class NodePresenter implements Serializable {
             node = nodeService.readNode(id);
         }
 
-        return "node";
+        return "node?faces-redirect=true";
     }
 
     public Node getNode() {

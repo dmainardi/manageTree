@@ -10,7 +10,8 @@
         <h:form>
             <h:outputLabel for="name" value="Name"/><br/>
             <h:inputText id="name" value="#{internalElementPresenter.internalElement.name}"/><br/>
-            <h:commandButton value="Save" action="#{internalElementPresenter.saveInternalElement()}"/>
+            <h:commandLink value="Save" action="#{internalElementPresenter.saveInternalElement()}"/><br/>
+            <h:link value="Cancel" outcome="internalElements"/>
         </h:form>
     </h:body>
 </html>

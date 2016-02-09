@@ -12,7 +12,8 @@
             <h:inputText id="name" value="#{unitMeasurePresenter.unitMeasure.name}"/><br/>
             <h:outputLabel for="symbol" value="Symbol"/><br/>
             <h:inputText id="symbol" value="#{unitMeasurePresenter.unitMeasure.symbol}"/><br/>
-            <h:commandButton value="Save" action="#{unitMeasurePresenter.saveUnitMeasure()}"/>
+            <h:commandLink value="Save" action="#{unitMeasurePresenter.saveUnitMeasure()}"/><br/>
+            <h:link value="Cancel" outcome="unitsMeasure"/>
         </h:form>
     </h:body>
 </html>
