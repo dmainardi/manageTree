@@ -18,7 +18,7 @@
                 <f:convertNumber type="number" maxFractionDigits="2" />
             </h:inputText><br/>
             <h:outputLabel for="unitMeasure" value="Unit of measure"/><br/>
-            <h:selectOneMenu id="unitMeasure" value="#{externalElementPresenter.externalElement.um}" converter="#{unitMeasureConverter}">
+            <h:selectOneMenu id="unitMeasure" value="#{externalElementPresenter.externalElement.um}" converter="omnifaces.SelectItemsConverter">
                 <f:selectItem itemLabel="Select one" noSelectionOption="true"/>
                 <f:selectItems value="#{unitMeasureListPresenter.listUnitsMeasure()}" var="um" itemLabel="#{um.symbol}" itemValue="#{um}"/>
             </h:selectOneMenu><br/>
