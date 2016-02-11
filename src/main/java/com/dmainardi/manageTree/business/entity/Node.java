@@ -78,6 +78,10 @@ public class Node extends BaseEntity<Long>{
         price = new BigDecimal(BigInteger.ZERO);
         children = new ArrayList<>();
     }
+    
+    public BigDecimal getTotal() {
+        return qty.multiply(price);
+    }
 
     @Override
     public Long getId() {

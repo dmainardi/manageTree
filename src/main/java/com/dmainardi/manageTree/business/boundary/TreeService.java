@@ -16,7 +16,9 @@
  */
 package com.dmainardi.manageTree.business.boundary;
 
+import com.dmainardi.manageTree.business.entity.Node;
 import com.dmainardi.manageTree.business.entity.Tree;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -35,6 +37,7 @@ public class TreeService {
     EntityManager em;
     
     public Tree saveTree(Tree tree) {
+        updateNodeAmounts(tree.getRoot());
         if (tree.getId() == null)
             em.persist(tree);
         else
@@ -58,5 +61,16 @@ public class TreeService {
         query.select(root);
         
         return em.createQuery(query).getResultList();
+    }
+    
+    private void updateNodeAmounts(Node current) {
+        double totalAmount = 0.0;
+        if (current.getChildren() != null && !current.getChildren().isEmpty()) {
+            for (Node child : current.getChildren()) {
+                updateNodeAmounts(child);
+                totalAmount +=child.getTotal().doubleValue();
+            }
+            current.setPrice(new BigDecimal(totalAmount));
+        }
     }
 }

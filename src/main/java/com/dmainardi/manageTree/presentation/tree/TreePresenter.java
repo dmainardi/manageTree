@@ -65,7 +65,7 @@ public class TreePresenter implements Serializable {
     }
     
     private void populateTree() {
-        root = new DefaultTreeNode("group", tree.getRoot(), null);
+        root = new DefaultTreeNode("group", new NodeWrapper(tree.getRoot()), null);
         if (tree.getRoot().getChildren() != null)
             for (Node node : tree.getRoot().getChildren())
                 populateTreeNodes(root, node);
@@ -74,13 +74,13 @@ public class TreePresenter implements Serializable {
     private void populateTreeNodes(TreeNode parent, Node current) {
         String nodeType = "unknown";
         if (current instanceof GroupNode)
-            nodeType = "group";
+            nodeType = "grp";
         if (current instanceof ExternalNode)
-            nodeType = "external";
+            nodeType = "ext";
         if (current instanceof InternalNode)
-            nodeType = "internal";
+            nodeType = "int";
         
-        TreeNode nodeTemp = new DefaultTreeNode(nodeType, current, parent);
+        TreeNode nodeTemp = new DefaultTreeNode(nodeType, new NodeWrapper(current), parent);
         
         if (current.getChildren() != null)
             for (Node node : current.getChildren())

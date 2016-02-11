@@ -12,19 +12,27 @@
         <h:form>
             <h:outputLabel for="name" value="Name"/><br/>
             <h:inputText id="name" value="#{treePresenter.tree.name}"/><br/>
-            <p:treeTable value="#{treePresenter.root}" var="node" nodeVar="pfNode">
+            <h:outputLabel for="totalAmount" value="Tree total price"/><br/>
+            <h:outputText id="totalAmount" value="#{treePresenter.tree.root.total}"/><br/>
+            <p:treeTable value="#{treePresenter.root}" var="nodeWrapper" nodeVar="pfNode">
                 <f:facet name="header">Tree nodes</f:facet>
                 <p:column headerText="Type">
                     <h:outputText value="#{pfNode.type}"/>
                 </p:column>
                 <p:column headerText="Description">
-                    <h:outputText value="#{node.description}"/>
-                </p:column>
-                <p:column headerText="Price">
-                    <h:outputText value="#{node.price}"/>
+                    <h:outputText value="#{nodeWrapper.description}"/>
                 </p:column>
                 <p:column headerText="Quantity">
-                    <h:outputText value="#{node.qty}"/>
+                    <h:outputText value="#{nodeWrapper.node.qty}"><f:convertNumber type="number" maxFractionDigits="5" /></h:outputText>
+                </p:column>
+                <p:column headerText="U.M.">
+                    <h:outputText value="#{nodeWrapper.unitMeasure}"/>
+                </p:column>
+                <p:column headerText="Price [in euros]">
+                    <h:outputText value="#{nodeWrapper.node.price}"><f:convertNumber type="number" maxFractionDigits="2" /></h:outputText>
+                </p:column>
+                <p:column headerText="Total [in euros]">
+                    <h:outputText value="#{nodeWrapper.node.total}"><f:convertNumber type="number" maxFractionDigits="2" /></h:outputText>
                 </p:column>
             </p:treeTable>
             
