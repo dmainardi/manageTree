@@ -16,7 +16,6 @@
  */
 package com.dmainardi.manageTree.business.entity;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn
-public class Node implements Serializable {
+public class Node extends BaseEntity<Long>{
 
     @Id
     @GeneratedValue
@@ -80,10 +79,12 @@ public class Node implements Serializable {
         children = new ArrayList<>();
     }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

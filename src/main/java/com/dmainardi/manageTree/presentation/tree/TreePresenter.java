@@ -17,11 +17,17 @@
 package com.dmainardi.manageTree.presentation.tree;
 
 import com.dmainardi.manageTree.business.boundary.TreeService;
+import com.dmainardi.manageTree.business.entity.ExternalNode;
+import com.dmainardi.manageTree.business.entity.GroupNode;
+import com.dmainardi.manageTree.business.entity.InternalNode;
+import com.dmainardi.manageTree.business.entity.Node;
 import com.dmainardi.manageTree.business.entity.Tree;
 import java.io.Serializable;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 /**
  *
@@ -35,6 +41,7 @@ public class TreePresenter implements Serializable {
     TreeService treeService;
 
     private Tree tree;
+    private TreeNode root;
 
     public void deleteTree(Tree tree) {
         treeService.deleteTree(tree);
@@ -51,9 +58,33 @@ public class TreePresenter implements Serializable {
             tree = new Tree();
         } else {
             tree = treeService.readTree(id);
+            populateTree();
         }
 
         return "tree?faces-redirect=true";
+    }
+    
+    private void populateTree() {
+        root = new DefaultTreeNode("group", tree.getRoot(), null);
+        if (tree.getRoot().getChildren() != null)
+            for (Node node : tree.getRoot().getChildren())
+                populateTreeNodes(root, node);
+    }
+    
+    private void populateTreeNodes(TreeNode parent, Node current) {
+        String nodeType = "unknown";
+        if (current instanceof GroupNode)
+            nodeType = "group";
+        if (current instanceof ExternalNode)
+            nodeType = "external";
+        if (current instanceof InternalNode)
+            nodeType = "internal";
+        
+        TreeNode nodeTemp = new DefaultTreeNode(nodeType, current, parent);
+        
+        if (current.getChildren() != null)
+            for (Node node : current.getChildren())
+                populateTreeNodes(nodeTemp, node);
     }
 
     public Tree getTree() {
@@ -62,5 +93,13 @@ public class TreePresenter implements Serializable {
 
     public void setTree(Tree tree) {
         this.tree = tree;
+    }
+
+    public TreeNode getRoot() {
+        return root;
+    }
+
+    public void setRoot(TreeNode root) {
+        this.root = root;
     }
 }
