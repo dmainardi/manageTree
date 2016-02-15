@@ -28,10 +28,20 @@ import javax.validation.constraints.NotNull;
 @Entity
 @DiscriminatorValue(value = "int")
 public class InternalNode extends Node {
-    
+
     @ManyToOne(optional = false)
     @NotNull
     private InternalElement element;
+
+    @Override
+    public String getDescription() {
+        return element.getName();
+    }
+
+    @Override
+    public String getUnitMeasure() {
+        return "h";
+    }
 
     public InternalElement getElement() {
         return element;

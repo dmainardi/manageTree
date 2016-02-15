@@ -33,8 +33,14 @@ public class GroupNode extends Node {
     @NotNull
     private String description;
 
+    @Override
     public String getDescription() {
         return description;
+    }
+    
+    @Override
+    public String getUnitMeasure() {
+        return "---";
     }
 
     public void setDescription(String description) {

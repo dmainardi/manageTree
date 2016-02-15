@@ -28,9 +28,20 @@ import javax.validation.constraints.NotNull;
 @Entity
 @DiscriminatorValue(value = "ext")
 public class ExternalNode extends Node {
+
     @ManyToOne(optional = false)
     @NotNull
     private ExternalElement element;
+
+    @Override
+    public String getDescription() {
+        return element.getCode() + " - " + element.getDescription();
+    }
+
+    @Override
+    public String getUnitMeasure() {
+        return element.getUm().getSymbol();
+    }
 
     public ExternalElement getElement() {
         return element;

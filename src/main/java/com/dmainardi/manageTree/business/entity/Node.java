@@ -42,7 +42,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn
-public class Node extends BaseEntity<Long>{
+public abstract class Node extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue
@@ -78,6 +78,10 @@ public class Node extends BaseEntity<Long>{
         price = new BigDecimal(BigInteger.ZERO);
         children = new ArrayList<>();
     }
+    
+    abstract String getDescription();
+
+    abstract String getUnitMeasure();
     
     public BigDecimal getTotal() {
         return qty.multiply(price);
