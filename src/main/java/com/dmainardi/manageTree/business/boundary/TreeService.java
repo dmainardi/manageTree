@@ -73,4 +73,11 @@ public class TreeService {
             current.setPrice(new BigDecimal(totalAmount));
         }
     }
+    
+    public void deleteNode(Node node, Node root) {
+        node.getChildren().clear();
+        node.getFather().getChildren().remove(node);
+        node.setFather(null);
+        updateNodeAmounts(root);
+    }
 }

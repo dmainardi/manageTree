@@ -42,6 +42,7 @@ public class TreePresenter implements Serializable {
 
     private Tree tree;
     private TreeNode root;
+    private TreeNode selectedNode;
 
     public void deleteTree(Tree tree) {
         treeService.deleteTree(tree);
@@ -63,28 +64,44 @@ public class TreePresenter implements Serializable {
 
         return "tree?faces-redirect=true";
     }
-    
+
     private void populateTree() {
         root = new DefaultTreeNode("group", tree.getRoot(), null);
-        if (tree.getRoot().getChildren() != null)
-            for (Node node : tree.getRoot().getChildren())
+        if (tree.getRoot().getChildren() != null) {
+            for (Node node : tree.getRoot().getChildren()) {
                 populateTreeNodes(root, node);
+            }
+        }
     }
-    
+
     private void populateTreeNodes(TreeNode parent, Node current) {
         String nodeType = "unknown";
-        if (current instanceof GroupNode)
+        if (current instanceof GroupNode) {
             nodeType = "grp";
-        if (current instanceof ExternalNode)
+        }
+        if (current instanceof ExternalNode) {
             nodeType = "ext";
-        if (current instanceof InternalNode)
+        }
+        if (current instanceof InternalNode) {
             nodeType = "int";
-        
+        }
+
         TreeNode nodeTemp = new DefaultTreeNode(nodeType, current, parent);
-        
-        if (current.getChildren() != null)
-            for (Node node : current.getChildren())
+
+        if (current.getChildren() != null) {
+            for (Node node : current.getChildren()) {
                 populateTreeNodes(nodeTemp, node);
+            }
+        }
+    }
+
+    public void deleteSelectedNode() {
+        treeService.deleteNode((Node) selectedNode.getData(), tree.getRoot());
+        selectedNode.getChildren().clear();
+        selectedNode.getParent().getChildren().remove(selectedNode);
+        selectedNode.setParent(null);
+
+        selectedNode = null;
     }
 
     public Tree getTree() {
@@ -101,5 +118,13 @@ public class TreePresenter implements Serializable {
 
     public void setRoot(TreeNode root) {
         this.root = root;
+    }
+
+    public TreeNode getSelectedNode() {
+        return selectedNode;
+    }
+
+    public void setSelectedNode(TreeNode selectedNode) {
+        this.selectedNode = selectedNode;
     }
 }
