@@ -40,7 +40,14 @@ public class TreePresenter implements Serializable {
     @Inject
     TreeService treeService;
 
+    public enum NodeType {
+        GROUP_NODE,
+        INTERNAL_NODE,
+        EXTERNAL_NODE
+    }
+
     private Tree tree;
+    private Node node;
     private TreeNode root;
     private TreeNode selectedNode;
 
@@ -104,6 +111,39 @@ public class TreePresenter implements Serializable {
         selectedNode = null;
     }
 
+    public String addNode(NodeType nodeType) {
+        switch (nodeType) {
+            case EXTERNAL_NODE:
+                node = new ExternalNode();
+                return "externalNode";
+            case GROUP_NODE:
+                node = new GroupNode();
+                return "groupNode";
+            case INTERNAL_NODE:
+                node = new InternalNode();
+                return "internalNode";
+            default:
+                return null;
+        }
+    }
+
+    public String insertIntoTree() {
+        if (selectedNode == null) {
+            //root will be the father
+            node.setFather(tree.getRoot());
+            tree.getRoot().getChildren().add(node);
+        } else if (!selectedNode.getType().equalsIgnoreCase("grp")) {
+            //selectedNode's father will be the father
+            node.setFather(((Node)selectedNode.getData()).getFather());
+            ((Node)selectedNode.getData()).getFather().getChildren().add(node);
+        } else {
+            //selectedNode will be the father
+            node.setFather((Node)selectedNode.getData());
+            ((Node)selectedNode.getData()).getChildren().add(node);
+        }
+        return "tree?faces-redirect=true";
+    }
+
     public Tree getTree() {
         return tree;
     }
@@ -127,4 +167,13 @@ public class TreePresenter implements Serializable {
     public void setSelectedNode(TreeNode selectedNode) {
         this.selectedNode = selectedNode;
     }
+
+    public Node getNode() {
+        return node;
+    }
+
+    public void setNode(Node node) {
+        this.node = node;
+    }
+
 }

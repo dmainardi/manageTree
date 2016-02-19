@@ -14,6 +14,11 @@
             <h:inputText id="name" value="#{treePresenter.tree.name}"/><br/>
             <h:outputLabel for="totalAmount" value="Tree total price"/><br/>
             <h:outputText id="totalAmount" value="#{treePresenter.tree.root.total}"/><br/>
+            <p:menuButton value="Add node">
+                <p:menuitem value="New group node" action="#{treePresenter.addNode('GROUP_NODE')}"/>
+                <p:menuitem value="New internal node" action="#{treePresenter.addNode('INTERNAL_NODE')}"/>
+                <p:menuitem value="New extrnal node" action="#{treePresenter.addNode('EXTERNAL_NODE')}"/>
+            </p:menuButton>
             <p:commandButton value="Delete selected node" action="#{treePresenter.deleteSelectedNode()}" update="theTree"/><br/>
             <p:treeTable id="theTree" value="#{treePresenter.root}" var="node" nodeVar="pfNode" selectionMode="single" selection="#{treePresenter.selectedNode}">
                 <f:facet name="header">Tree nodes</f:facet>
