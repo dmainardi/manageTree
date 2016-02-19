@@ -19,6 +19,7 @@ package com.dmainardi.manageTree.presentation.tree;
 import com.dmainardi.manageTree.business.boundary.TreeService;
 import com.dmainardi.manageTree.business.entity.ExternalNode;
 import com.dmainardi.manageTree.business.entity.GroupNode;
+import com.dmainardi.manageTree.business.entity.InternalElement;
 import com.dmainardi.manageTree.business.entity.InternalNode;
 import com.dmainardi.manageTree.business.entity.Node;
 import com.dmainardi.manageTree.business.entity.Tree;
@@ -26,6 +27,7 @@ import java.io.Serializable;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -50,6 +52,7 @@ public class TreePresenter implements Serializable {
     private Node node;
     private TreeNode root;
     private TreeNode selectedNode;
+    private InternalElement selectedInternalElement;
 
     public void deleteTree(Tree tree) {
         treeService.deleteTree(tree);
@@ -148,6 +151,10 @@ public class TreePresenter implements Serializable {
         populateTreeNodes(father, node);
         return "tree?faces-redirect=true";
     }
+    
+    public void onInternalElementSelect(SelectEvent event) {
+        ((InternalNode)node).setElement((InternalElement) event.getObject());
+    }
 
     public Tree getTree() {
         return tree;
@@ -181,4 +188,12 @@ public class TreePresenter implements Serializable {
         this.node = node;
     }
 
+    public InternalElement getSelectedInternalElement() {
+        return selectedInternalElement;
+    }
+
+    public void setSelectedInternalElement(InternalElement selectedInternalElement) {
+        this.selectedInternalElement = selectedInternalElement;
+    }
+    
 }

@@ -35,7 +35,10 @@ public class InternalNode extends Node {
 
     @Override
     public String getDescription() {
-        return element.getName();
+        if (element != null)
+            return element.getName();
+        else
+            return "Select an element";
     }
 
     @Override

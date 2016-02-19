@@ -35,7 +35,10 @@ public class ExternalNode extends Node {
 
     @Override
     public String getDescription() {
-        return element.getCode() + " - " + element.getDescription();
+        if (element != null)
+            return element.getCode() + " - " + element.getDescription();
+        else
+            return "Select an element";
     }
 
     @Override
