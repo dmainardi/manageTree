@@ -9,18 +9,18 @@
     <h:body>
         <h1>Group node details</h1>
         <h:form>
-            <h:outputLabel for="description" value="Description"/>
-            <h:inputTextarea id="description" value="#{treePresenter.node.description}"/>
-            <h:outputLabel for="qty" value="Quantity"/>
+            <h:outputLabel for="description" value="Description"/><br/>
+            <h:inputTextarea id="description" value="#{treePresenter.node.description}"/><br/>
+            <h:outputLabel for="qty" value="Quantity"/><br/>
             <h:inputText id="qty" value="#{treePresenter.node.qty}">
                 <f:convertNumber type="number" maxFractionDigits="5" />
             </h:inputText><br/>
-            <h:outputLabel for="price" value="Price [in euros]"/>
+            <h:outputLabel for="price" value="Price [in euros]"/><br/>
             <h:inputText id="price" value="#{treePresenter.node.price}">
                 <f:convertNumber type="number" maxFractionDigits="2" />
             </h:inputText><br/>
-            <h:outputLabel for="note" value="Notes"/>
-            <h:inputTextarea id="note" value="#{treePresenter.node.note}"/>
+            <h:outputLabel for="note" value="Notes"/><br/>
+            <h:inputTextarea id="note" value="#{treePresenter.node.note}"/><br/>
             
             <h:commandLink value="Save" action="#{treePresenter.insertIntoTree()}"/><br/>
             <h:link value="Cancel" outcome="tree"/>

@@ -66,8 +66,8 @@ public class TreePresenter implements Serializable {
             tree = new Tree();
         } else {
             tree = treeService.readTree(id);
-            populateTree();
         }
+        populateTree();
 
         return "tree?faces-redirect=true";
     }
@@ -115,32 +115,37 @@ public class TreePresenter implements Serializable {
         switch (nodeType) {
             case EXTERNAL_NODE:
                 node = new ExternalNode();
-                return "externalNode";
+                return "externalNode?faces-redirect=true";
             case GROUP_NODE:
                 node = new GroupNode();
-                return "groupNode";
+                return "groupNode?faces-redirect=true";
             case INTERNAL_NODE:
                 node = new InternalNode();
-                return "internalNode";
+                return "internalNode?faces-redirect=true";
             default:
                 return null;
         }
     }
 
     public String insertIntoTree() {
+        TreeNode father;
         if (selectedNode == null) {
             //root will be the father
             node.setFather(tree.getRoot());
             tree.getRoot().getChildren().add(node);
+            father = root;
         } else if (!selectedNode.getType().equalsIgnoreCase("grp")) {
             //selectedNode's father will be the father
             node.setFather(((Node)selectedNode.getData()).getFather());
             ((Node)selectedNode.getData()).getFather().getChildren().add(node);
+            father = selectedNode.getParent();
         } else {
             //selectedNode will be the father
             node.setFather((Node)selectedNode.getData());
             ((Node)selectedNode.getData()).getChildren().add(node);
+            father = selectedNode;
         }
+        populateTreeNodes(father, node);
         return "tree?faces-redirect=true";
     }
 

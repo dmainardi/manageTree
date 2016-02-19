@@ -49,6 +49,9 @@ public class Tree implements Serializable {
     private Node root;
 
     public Tree() {
+        root = new GroupNode();
+        ((GroupNode)root).setDescription("Root node");
+        root.setTree(this);
     }
 
     public Long getId() {
