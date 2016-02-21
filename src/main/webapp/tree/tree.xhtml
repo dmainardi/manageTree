@@ -19,7 +19,8 @@
                 <p:menuitem value="New internal node" action="#{treePresenter.addNode('INTERNAL_NODE')}"/>
                 <p:menuitem value="New extrnal node" action="#{treePresenter.addNode('EXTERNAL_NODE')}"/>
             </p:menuButton>
-            <p:commandButton value="Delete selected node" action="#{treePresenter.deleteSelectedNode()}" update="theTree"/><br/>
+            <p:commandButton value="Delete selected node" action="#{treePresenter.deleteSelectedNode()}" update="theTree"/>
+            <p:commandButton value="Open selected node" action="#{treePresenter.detailSelectedNode()}" update="theTree"/><br/>
             <p:treeTable id="theTree" value="#{treePresenter.root}" var="node" nodeVar="pfNode" selectionMode="single" selection="#{treePresenter.selectedNode}">
                 <f:facet name="header">Tree nodes</f:facet>
                 <p:column headerText="Type">

@@ -13,6 +13,6 @@
     <h:outputLabel for="note" value="Notes"/><br/>
     <h:inputTextarea id="note" value="#{treePresenter.node.note}"/><br/>
 
-    <h:commandLink value="Save" action="#{treePresenter.insertIntoTree()}"/><br/>
+    <h:commandLink value="Save" action="#{treePresenter.saveNode()}"/><br/>
     <h:link value="Cancel" outcome="tree"/>
 </ui:composition>

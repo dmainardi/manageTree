@@ -110,12 +110,14 @@ public class TreePresenter implements Serializable {
     }
 
     public void deleteSelectedNode() {
-        treeService.deleteNode((Node) selectedNode.getData(), tree.getRoot());
-        selectedNode.getChildren().clear();
-        selectedNode.getParent().getChildren().remove(selectedNode);
-        selectedNode.setParent(null);
+        if (selectedNode != null) {
+            treeService.deleteNode((Node) selectedNode.getData(), tree.getRoot());
+            selectedNode.getChildren().clear();
+            selectedNode.getParent().getChildren().remove(selectedNode);
+            selectedNode.setParent(null);
 
-        selectedNode = null;
+            selectedNode = null;
+        }
     }
 
     public String addNode(NodeType nodeType) {
@@ -134,7 +136,33 @@ public class TreePresenter implements Serializable {
         }
     }
 
-    public String insertIntoTree() {
+    public String detailSelectedNode() {
+        if (selectedNode != null) {
+            switch (selectedNode.getType()) {
+                case "ext":
+                    node = (ExternalNode) selectedNode.getData();
+                    return "externalNode?faces-redirect=true";
+                case "grp":
+                    node = (GroupNode) selectedNode.getData();
+                    return "groupNode?faces-redirect=true";
+                case "int":
+                    node = (InternalNode) selectedNode.getData();
+                    return "internalNode?faces-redirect=true";
+                default:
+                    return null;
+            }
+        }
+        return null;
+    }
+    
+    public String saveNode() {
+        if (node.getFather() == null)
+            insertIntoTree();
+        
+        return "tree?faces-redirect=true";
+    }
+
+    private void insertIntoTree() {
         TreeNode father;
         if (selectedNode == null) {
             //root will be the father
@@ -143,26 +171,25 @@ public class TreePresenter implements Serializable {
             father = root;
         } else if (!selectedNode.getType().equalsIgnoreCase("grp")) {
             //selectedNode's father will be the father
-            node.setFather(((Node)selectedNode.getData()).getFather());
-            ((Node)selectedNode.getData()).getFather().getChildren().add(node);
+            node.setFather(((Node) selectedNode.getData()).getFather());
+            ((Node) selectedNode.getData()).getFather().getChildren().add(node);
             father = selectedNode.getParent();
         } else {
             //selectedNode will be the father
-            node.setFather((Node)selectedNode.getData());
-            ((Node)selectedNode.getData()).getChildren().add(node);
+            node.setFather((Node) selectedNode.getData());
+            ((Node) selectedNode.getData()).getChildren().add(node);
             father = selectedNode;
         }
         populateTreeNodes(father, node);
-        return "tree?faces-redirect=true";
     }
-    
+
     public void onInternalElementSelect(SelectEvent event) {
-        ((InternalNode)node).setElement((InternalElement) event.getObject());
+        ((InternalNode) node).setElement((InternalElement) event.getObject());
     }
-    
+
     public void onExternalElementSelect(SelectEvent event) {
         ExternalElement element = (ExternalElement) event.getObject();
-        ((ExternalNode)node).setElement(element);
+        ((ExternalNode) node).setElement(element);
         node.setPrice(new BigDecimal(element.getPrice().doubleValue()));
     }
 
@@ -213,5 +240,5 @@ public class TreePresenter implements Serializable {
     public void setSelectedExternalElement(ExternalElement selectedExternalElement) {
         this.selectedExternalElement = selectedExternalElement;
     }
-    
+
 }
