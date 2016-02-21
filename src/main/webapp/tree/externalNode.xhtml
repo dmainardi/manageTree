@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>External node</title>
     </h:head>
@@ -14,7 +15,7 @@
                 <f:facet name="header">
                     Select an external element
                 </f:facet>
-                <p:ajax event="rowSelect" listener="#{treePresenter.onExternalElementSelect}" update=":form:description" />
+                <p:ajax event="rowSelect" listener="#{treePresenter.onExternalElementSelect}" update=":form:description :form:price" />
                 <p:column headerText="Code">
                     <h:outputText value="#{elem.code}" />
                 </p:column>
@@ -33,19 +34,7 @@
 
             <h:outputLabel for="description" value="Description"/><br/>
             <h:outputText id="description" value="#{treePresenter.node.description}"/><br/>
-            <h:outputLabel for="qty" value="Quantity"/><br/>
-            <h:inputText id="qty" value="#{treePresenter.node.qty}">
-                <f:convertNumber type="number" maxFractionDigits="5" />
-            </h:inputText><br/>
-            <h:outputLabel for="price" value="Price [in euros]"/><br/>
-            <h:inputText id="price" value="#{treePresenter.node.price}">
-                <f:convertNumber type="number" maxFractionDigits="2" />
-            </h:inputText><br/>
-            <h:outputLabel for="note" value="Notes"/><br/>
-            <h:inputTextarea id="note" value="#{treePresenter.node.note}"/><br/>
-
-            <h:commandLink value="Save" action="#{treePresenter.insertIntoTree()}"/><br/>
-            <h:link value="Cancel" outcome="tree"/>
+            <ui:include src="commonNodeFieldsTemplate.xhtml"/>
         </h:form>
     </h:body>
 </html>

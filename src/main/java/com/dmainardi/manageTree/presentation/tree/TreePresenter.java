@@ -25,6 +25,8 @@ import com.dmainardi.manageTree.business.entity.InternalNode;
 import com.dmainardi.manageTree.business.entity.Node;
 import com.dmainardi.manageTree.business.entity.Tree;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -159,7 +161,9 @@ public class TreePresenter implements Serializable {
     }
     
     public void onExternalElementSelect(SelectEvent event) {
-        ((ExternalNode)node).setElement((ExternalElement) event.getObject());
+        ExternalElement element = (ExternalElement) event.getObject();
+        ((ExternalNode)node).setElement(element);
+        node.setPrice(new BigDecimal(element.getPrice().doubleValue()));
     }
 
     public Tree getTree() {

@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:outputLabel for="qty" value="Quantity"/><br/>
+    <h:inputText id="qty" value="#{treePresenter.node.qty}">
+        <f:convertNumber type="number" maxFractionDigits="5" />
+    </h:inputText><br/>
+    <h:outputLabel for="price" value="Price [in euros]"/><br/>
+    <h:inputText id="price" value="#{treePresenter.node.price}">
+        <f:convertNumber type="number" maxFractionDigits="2" />
+    </h:inputText><br/>
+    <h:outputLabel for="note" value="Notes"/><br/>
+    <h:inputTextarea id="note" value="#{treePresenter.node.note}"/><br/>
+
+    <h:commandLink value="Save" action="#{treePresenter.insertIntoTree()}"/><br/>
+    <h:link value="Cancel" outcome="tree"/>
+</ui:composition>
