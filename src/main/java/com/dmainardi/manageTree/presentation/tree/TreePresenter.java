@@ -26,7 +26,6 @@ import com.dmainardi.manageTree.business.entity.Node;
 import com.dmainardi.manageTree.business.entity.Tree;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import javax.faces.flow.FlowScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -141,12 +140,14 @@ public class TreePresenter implements Serializable {
             switch (selectedNode.getType()) {
                 case "ext":
                     node = (ExternalNode) selectedNode.getData();
+                    selectedExternalElement = ((ExternalNode) node).getElement();
                     return "externalNode?faces-redirect=true";
                 case "grp":
                     node = (GroupNode) selectedNode.getData();
                     return "groupNode?faces-redirect=true";
                 case "int":
                     node = (InternalNode) selectedNode.getData();
+                    selectedInternalElement = ((InternalNode) node).getElement();
                     return "internalNode?faces-redirect=true";
                 default:
                     return null;
@@ -156,6 +157,8 @@ public class TreePresenter implements Serializable {
     }
     
     public String saveNode() {
+        selectedExternalElement = null;
+        selectedInternalElement = null;
         if (node.getFather() == null)
             insertIntoTree();
         
