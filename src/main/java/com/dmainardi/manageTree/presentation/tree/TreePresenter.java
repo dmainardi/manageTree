@@ -17,6 +17,7 @@
 package com.dmainardi.manageTree.presentation.tree;
 
 import com.dmainardi.manageTree.business.boundary.TreeService;
+import com.dmainardi.manageTree.business.entity.ExternalElement;
 import com.dmainardi.manageTree.business.entity.ExternalNode;
 import com.dmainardi.manageTree.business.entity.GroupNode;
 import com.dmainardi.manageTree.business.entity.InternalElement;
@@ -53,6 +54,7 @@ public class TreePresenter implements Serializable {
     private TreeNode root;
     private TreeNode selectedNode;
     private InternalElement selectedInternalElement;
+    private ExternalElement selectedExternalElement;
 
     public void deleteTree(Tree tree) {
         treeService.deleteTree(tree);
@@ -155,6 +157,10 @@ public class TreePresenter implements Serializable {
     public void onInternalElementSelect(SelectEvent event) {
         ((InternalNode)node).setElement((InternalElement) event.getObject());
     }
+    
+    public void onExternalElementSelect(SelectEvent event) {
+        ((ExternalNode)node).setElement((ExternalElement) event.getObject());
+    }
 
     public Tree getTree() {
         return tree;
@@ -194,6 +200,14 @@ public class TreePresenter implements Serializable {
 
     public void setSelectedInternalElement(InternalElement selectedInternalElement) {
         this.selectedInternalElement = selectedInternalElement;
+    }
+
+    public ExternalElement getSelectedExternalElement() {
+        return selectedExternalElement;
+    }
+
+    public void setSelectedExternalElement(ExternalElement selectedExternalElement) {
+        this.selectedExternalElement = selectedExternalElement;
     }
     
 }
